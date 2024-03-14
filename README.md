@@ -1,4 +1,4 @@
-# Full-Text-Search From Document Using Inverted Index In Python
+# Full-Text-Search From Document Using Inverted Index In Java
 
 ## Usage
 

@@ -12,18 +12,17 @@ public class DOCXReader extends Reader {
 
     @Override
     public String parse(String filepath) {
-        File docxFile = new File( filepath ) ;
+        File docxFile = new File(filepath);
         try {
-            FileInputStream fileInputStream = new FileInputStream( docxFile ) ;
-            XWPFDocument document = new XWPFDocument( fileInputStream ) ;
-            List<XWPFParagraph> paragraphs = document.getParagraphs() ;
+            FileInputStream fileInputStream = new FileInputStream(docxFile);
+            XWPFDocument document = new XWPFDocument(fileInputStream);
+            List<XWPFParagraph> paragraphs = document.getParagraphs();
             StringBuilder text = new StringBuilder();
-            for ( XWPFParagraph paragraph : paragraphs ) {
+            for (XWPFParagraph paragraph : paragraphs) {
                 text.append(" ").append(paragraph.getText());
             }
             return text.toString().strip();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
