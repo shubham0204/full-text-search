@@ -1,2 +1,8 @@
-rootProject.name = 'full-text-search'
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
 
+rootProject.name = 'full-text-search'

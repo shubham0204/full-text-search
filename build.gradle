@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.graalvm.buildtools.native' version '0.9.28'
 }
 
 group = 'io.shubham0204.fulltextsearch'
@@ -24,4 +26,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+application {
+    mainClass = "io.shubham0204.fulltextsearch.Main"
 }

@@ -19,6 +19,7 @@ class TestIndex {
         String src = "Hello World. The world has 7 continents. The price of the burger is $7. Today's date is 3/4/2024";
         List<String> tokens = Utils.preprocessDocument(src);
         System.out.println(tokens.toString());
+        assertEquals( 15 , tokens.size() ) ;
         assertEquals(
                 Arrays.asList("hello", "world", "the", "world", "has", "continents", "the", "price", "of", "the", "burger", "is", "todays", "date", "is"),
                 tokens);
