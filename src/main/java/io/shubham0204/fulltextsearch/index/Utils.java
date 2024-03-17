@@ -17,7 +17,7 @@ public class Utils {
     private static List<String> tokenize(String text) {
         return Arrays.stream(text.split(" "))
                 .map(String::trim)
-                .filter(token -> !token.isEmpty())
+                .filter(token -> token.length() > 2 )
                 .toList();
     }
 

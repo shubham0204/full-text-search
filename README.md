@@ -8,6 +8,7 @@
 
 ## Development Log
 
+* 17-03-2024: Added [ShadowJAR] plugin to build FAT JARs, token length filter in `Utils`
 * 15-03-2024: Added `FileManager`, `TestFileManager`, `application` Gradle plugin
 * 14-03-2024: Added `InvertedIndex`, tests `TestIndex`, file-methods in `Utils`
 * 13-03-2024: Added `Reader`, `DOCXReader` and `PDFReader` in `main`, `TestReaders` in `test`

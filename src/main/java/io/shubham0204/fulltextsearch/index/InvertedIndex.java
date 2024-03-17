@@ -22,12 +22,11 @@ public class InvertedIndex {
         for (int i = 0; i < documents.length; i++) {
             List<String> tokens = Utils.preprocessDocument(documents[i]);
             for (String token : tokens) {
-                if (!index.containsKey(token)) {
-                    index.put(token, new HashSet<>());
-                }
+                index.computeIfAbsent( token , k -> new HashSet<>() ) ;
                 index.get(token).add(i);
             }
         }
+        System.out.println( "Num Tokens: " + index.keySet().size() ) ;
     }
 
     public Integer[] query(String token) {
