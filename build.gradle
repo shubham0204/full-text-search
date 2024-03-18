@@ -6,19 +6,22 @@ plugins {
 
 group = 'io.shubham0204.fulltextsearch'
 version = '1.0-SNAPSHOT'
+project.setProperty( "mainClassName" , "io.shubham0204.fulltextsearch.cli.FullTextSearchCommand" )
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-
     // Apache PDFBook
     implementation 'org.apache.pdfbox:pdfbox:2.0.0'
 
     // Apache POI for Microsoft documents
     implementation 'org.apache.poi:poi:5.2.5'
     implementation 'org.apache.poi:poi-ooxml:5.2.5'
+
+    // picocli for command-line utility
+    implementation 'info.picocli:picocli:4.7.5'
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
@@ -28,14 +31,10 @@ test {
     useJUnitPlatform()
 }
 
-jar {
+shadowJar {
     manifest {
         attributes(
-                'Main-Class': 'io.shubham0204.fulltextsearch.Main'
+                'mainClassName': 'io.shubham0204.fulltextsearch.cli.FullTextSearchCommand'
         )
     }
-}
-
-application {
-    mainClass = "io.shubham0204.fulltextsearch.Main"
 }
