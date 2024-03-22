@@ -2,6 +2,20 @@
 
 ## Usage
 
+### Index
+
+```
+$> fulltextsearch index build [dir]
+$> fulltextsearch index info [dir]
+$> fulltextsearch index rm [dir]
+```
+
+### Search
+
+```
+$> fulltextsearch query
+```
+
 ## Features
 
 * Text extraction from PDFs, Microsoft Word DOCX and text-based formats

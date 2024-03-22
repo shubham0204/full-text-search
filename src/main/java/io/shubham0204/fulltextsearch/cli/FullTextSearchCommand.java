@@ -1,24 +1,26 @@
 package io.shubham0204.fulltextsearch.cli;
 
+import io.shubham0204.fulltextsearch.cli.index.IndexCommand;
 import picocli.CommandLine;
 
 @CommandLine.Command(
-    name = "fulltextsearch" ,
-    description = "Performs a full-text-search on all readable files in the given directory" ,
-    subcommands = {
-        SearchCommand.class
-    }
+        name = "fulltextsearch",
+        description = "Performs a full-text-search on all readable files in the given directory",
+        subcommands = {
+                SearchCommand.class,
+                IndexCommand.class
+        }
 )
 public class FullTextSearchCommand implements Runnable {
 
     public static void main(String[] args) {
-        int exitCode = new CommandLine( new FullTextSearchCommand() ).execute( args ) ;
-        System.exit( exitCode );
+        int exitCode = new CommandLine(new FullTextSearchCommand()).execute(args);
+        System.exit(exitCode);
     }
 
     @Override
     public void run() {
-        System.out.println( "full-text-search utility for your files!" ) ;
+        CommandLine.usage(new FullTextSearchCommand(), System.out);
     }
 
 }

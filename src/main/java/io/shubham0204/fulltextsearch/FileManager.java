@@ -17,23 +17,27 @@ public class FileManager {
     private final PDFReader pdfReader = new PDFReader();
     private final DOCXReader docxReader = new DOCXReader();
 
-    public List<String> getFilesFromDir(String dirpath, List<String> allowedExtensions) {
-        File file = new File(dirpath);
+    public static boolean isIndexInDir(String dirPath) {
+        File indexFile = new File(dirPath, ".FST_INDEX");
+        return indexFile.exists();
+    }
+
+    public List<String> getFilesFromDir(String dirPath, List<String> allowedExtensions) {
+        File file = new File(dirPath);
         File[] readFiles = file.listFiles((dir, name) -> name.contains("."));
         ArrayList<String> docs = new ArrayList<>();
         if (readFiles != null) {
             for (File readFile : readFiles) {
                 Optional<String> extension = getFileExtension(readFile.getName());
                 if (extension.isPresent() && (allowedExtensions.contains(extension.get()))) {
-                    docs.add(readFileText(readFile.getAbsolutePath(), extension.get()));
-
+                    docs.add(readFile(readFile.getAbsolutePath(), extension.get()));
                 }
             }
         }
         return docs;
     }
 
-    private String readFileText(String filepath, String extension) {
+    private String readFile(String filepath, String extension) {
         try {
             if (Objects.equals(extension, "pdf")) {
                 return pdfReader.parse(filepath);
