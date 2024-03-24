@@ -1,0 +1,33 @@
+name: Build Fat JAR
+
+on: [ 'workflow_dispatch']
+
+jobs:
+  build_jar:
+    name: Build Fat JAR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project source code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4.2.1
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Build Fat JAR
+        run: ./gradlew shadowJar --stacktrace
+
+      - name: Upload JAR to artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: fulltextsearch.jar
+          path: build/libs/full-text-search-1.0-SNAPSHOT-all.jar
