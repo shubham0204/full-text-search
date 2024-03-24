@@ -14,7 +14,7 @@ public class Utils {
         return text.replaceAll("[^A-Za-z ]+", "").strip();
     }
 
-    private static List<String> tokenize(String text) {
+    public static List<String> tokenize(String text) {
         return Arrays.stream(text.split(" "))
                 .map(String::trim)
                 .filter(token -> token.length() > 2)

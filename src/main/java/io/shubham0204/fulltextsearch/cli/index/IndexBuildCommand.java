@@ -21,14 +21,14 @@ public class IndexBuildCommand implements Runnable {
     @Override
     public void run() {
         FileManager fileManager = new FileManager();
-        List<String> docs = fileManager.getFilesFromDir(directoryPath, List.of("docx"));
+        List<String> docs = fileManager.readFilesFromDir(directoryPath, List.of("docx"));
         InvertedIndex invertedIndex = new InvertedIndex();
         ConsoleLogger.info("Started building index...");
         invertedIndex.build(docs.toArray(String[]::new));
         ConsoleLogger.info("Index built successfully");
         try {
             invertedIndex.save(Paths.get(directoryPath, ".FST_INDEX").toString());
-            ConsoleLogger.info("Index saved successfully");
+            ConsoleLogger.success("Index saved successfully");
         } catch (IOException e) {
             ConsoleLogger.error(e.getMessage());
         }

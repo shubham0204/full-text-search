@@ -20,10 +20,11 @@ public class IndexDeleteCommand implements Runnable {
     public void run() {
         try {
             Files.delete(Paths.get(directoryPath, ".FST_INDEX"));
-        } catch (IOException e) {
+            ConsoleLogger.success( "Index deleted successfully" );
+        }
+        catch (IOException e) {
             ConsoleLogger.error(e.getMessage());
         }
-
     }
 
 }

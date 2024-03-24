@@ -1,4 +1,4 @@
-# Full-Text-Search From Document Using Inverted Index In Java
+# Full-Text-Search From Document Using Inverted Index
 
 ## Usage
 
@@ -10,17 +10,27 @@ $> fulltextsearch index info [dir]
 $> fulltextsearch index rm [dir]
 ```
 
+Use `fulltextsearch index --help` for description of each command.
+
 ### Search
 
 ```
-$> fulltextsearch query
+$> fulltextsearch search [dir]
 ```
 
 ## Features
 
 * Text extraction from PDFs, Microsoft Word DOCX and text-based formats
 * Disk-persistence of inverted index
-* Command-line tool
+* Validation of inverted index
+* Command-line utility
+
+### Dependencies
+
+* [Apache PdfBox](https://pdfbox.apache.org/)
+* [Apache POI](https://poi.apache.org/)
+* [picocli](https://picocli.info/)
+* [shadow](https://github.com/johnrengelman/shadow)
 
 ## Useful Resources
 

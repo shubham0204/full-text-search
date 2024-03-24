@@ -7,10 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class FileManager {
 
@@ -22,15 +19,32 @@ public class FileManager {
         return indexFile.exists();
     }
 
-    public List<String> getFilesFromDir(String dirPath, List<String> allowedExtensions) {
+    public List<String> readFilesFromDir(String dirPath, List<String> allowedExtensions) {
         File file = new File(dirPath);
         File[] readFiles = file.listFiles((dir, name) -> name.contains("."));
         ArrayList<String> docs = new ArrayList<>();
         if (readFiles != null) {
+            Arrays.sort( readFiles );
             for (File readFile : readFiles) {
                 Optional<String> extension = getFileExtension(readFile.getName());
                 if (extension.isPresent() && (allowedExtensions.contains(extension.get()))) {
                     docs.add(readFile(readFile.getAbsolutePath(), extension.get()));
+                }
+            }
+        }
+        return docs;
+    }
+
+    public static List<String> getFileNamesFromDir(String dirPath, List<String> allowedExtensions) {
+        File file = new File(dirPath);
+        File[] readFiles = file.listFiles((dir, name) -> name.contains("."));
+        ArrayList<String> docs = new ArrayList<>();
+        if (readFiles != null) {
+            Arrays.sort( readFiles );
+            for (File readFile : readFiles) {
+                Optional<String> extension = getFileExtension(readFile.getName());
+                if (extension.isPresent() && (allowedExtensions.contains(extension.get()))) {
+                    docs.add( readFile.getName() );
                 }
             }
         }
@@ -52,7 +66,7 @@ public class FileManager {
     }
 
     // Reference: https://www.baeldung.com/java-file-extension
-    private Optional<String> getFileExtension(String filename) {
+    private static Optional<String> getFileExtension(String filename) {
         return Optional.ofNullable(filename)
                 .filter(f -> f.contains("."))
                 .map(f -> f.substring(filename.lastIndexOf(".") + 1));

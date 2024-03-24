@@ -6,8 +6,9 @@ import picocli.CommandLine;
 @CommandLine.Command(
         name = "fulltextsearch",
         description = "Performs a full-text-search on all readable files in the given directory",
+        helpCommand = true,
         subcommands = {
-                SearchCommand.class,
+                QueryCommand.class,
                 IndexCommand.class
         }
 )
