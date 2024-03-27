@@ -5,15 +5,16 @@ import io.shubham0204.fulltextsearch.FileManager;
 import io.shubham0204.fulltextsearch.index.InvertedIndex;
 import picocli.CommandLine;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 @CommandLine.Command(
         name = "query",
-        description = "Performs full-text-search for a given query",
-        helpCommand = true
+        description = "Performs full-text-search for a given query"
 )
 public class QueryCommand implements Runnable {
 
@@ -25,12 +26,21 @@ public class QueryCommand implements Runnable {
         if (FileManager.isIndexInDir(directoryPath)) {
             try {
                 InvertedIndex invertedIndex = InvertedIndex.load(directoryPath);
+
                 List<String> filenames = FileManager.getFileNamesFromDir(directoryPath, List.of("docx")) ;
                 if( filenames.size() != invertedIndex.getInformation().numDocuments() ) {
                     ConsoleLogger.warn( "The index is outdated. " +
                             "The given directory has been modified after the index was built. " +
                             "Consider rebuilding the index.");
                 }
+                File dirFile = new File( directoryPath ) ;
+                Date lastModifiedDirDate = new Date( dirFile.lastModified() ) ;
+                if( lastModifiedDirDate.after( invertedIndex.getInformation().creationDate() ) ) {
+                    ConsoleLogger.warn( "The index is outdated. " +
+                            "The given directory has been modified after the index was built. " +
+                            "Consider rebuilding the index.");
+                }
+
                 Scanner scanner = new Scanner( System.in ) ;
                 while (true) {
                     ConsoleLogger.info( "Enter query: " );

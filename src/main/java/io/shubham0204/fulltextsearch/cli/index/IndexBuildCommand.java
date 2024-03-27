@@ -7,6 +7,8 @@ import picocli.CommandLine;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 
 @CommandLine.Command(
@@ -20,6 +22,7 @@ public class IndexBuildCommand implements Runnable {
 
     @Override
     public void run() {
+        Instant start = Instant.now() ;
         FileManager fileManager = new FileManager();
         List<String> docs = fileManager.readFilesFromDir(directoryPath, List.of("docx"));
         InvertedIndex invertedIndex = new InvertedIndex();
@@ -29,6 +32,8 @@ public class IndexBuildCommand implements Runnable {
         try {
             invertedIndex.save(Paths.get(directoryPath, ".FST_INDEX").toString());
             ConsoleLogger.success("Index saved successfully");
+            Instant end = Instant.now() ;
+            ConsoleLogger.info( "Index built in " + Duration.between( start , end ).toMillis() + " ms" );
         } catch (IOException e) {
             ConsoleLogger.error(e.getMessage());
         }
