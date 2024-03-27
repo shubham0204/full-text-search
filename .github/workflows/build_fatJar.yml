@@ -1,10 +1,10 @@
-name: Build Fat JAR
+name: Build Fat JAR and Release
 
-on: [ 'workflow_dispatch']
+on: [ 'workflow_dispatch' ]
 
 jobs:
   build_jar:
-    name: Build Fat JAR
+    name: Build Fat JAR and Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project source code
@@ -26,8 +26,29 @@ jobs:
       - name: Build Fat JAR
         run: ./gradlew shadowJar --stacktrace
 
-      - name: Upload JAR to artifacts
-        uses: actions/upload-artifact@v1
+      - name: Bump version for release
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
         with:
-          name: fulltextsearch.jar
-          path: build/libs/full-text-search-1.0-SNAPSHOT-all.jar
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create a release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: Full Text Search - ${{ steps.tag_version.outputs.new_tag }}
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Upload fatJar to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/libs/full-text-search-1.0-SNAPSHOT-all.jar
+          asset_name: fulltextsearch.jar
+          asset_content_type: application/java-archive
