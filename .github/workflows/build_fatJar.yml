@@ -49,6 +49,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/libs/full-text-search-1.0-SNAPSHOT-all.jar
+          asset_path: build/libs/full-text-search-1.0-all.jar
           asset_name: fulltextsearch.jar
           asset_content_type: application/java-archive

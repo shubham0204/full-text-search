@@ -1,23 +1,5 @@
 # Full-Text-Search From Document Using Inverted Index
 
-## Usage
-
-### Index
-
-```
-$> fulltextsearch index build [dir]
-$> fulltextsearch index info [dir]
-$> fulltextsearch index rm [dir]
-```
-
-Use `fulltextsearch index --help` for description of each command.
-
-### Search
-
-```
-$> fulltextsearch search [dir]
-```
-
 ## Features
 
 * Text extraction from PDFs, Microsoft Word DOCX and text-based formats
@@ -25,7 +7,49 @@ $> fulltextsearch search [dir]
 * Validation of inverted index
 * Command-line utility
 
-### Dependencies
+## Setup
+
+Make sure Java is installed on your system, with `JAVA_HOME` pointing to a JDK installation. 
+You may clone the project from the GitHub repository, and build it with `gradlew` present in the root of the 
+repository,
+
+```
+$> git clone https://github.com/shubham0204/full-text-search
+$> cd full-text-search
+$> ./gradlew build
+```
+
+To execute tests,
+
+```
+$> ./gradlew test
+```
+
+To build the fat/uber JAR,
+
+```
+$> ./gradlew shadowJar
+```
+
+## Usage
+
+### Index
+
+```
+$> java -jar fulltextsearch.jar index build [dir]
+$> java -jar fulltextsearch.jar index info [dir]
+$> java -jar fulltextsearch.jar index rm [dir]
+```
+
+Use `fulltextsearch index --help` for description of each command.
+
+### Query
+
+```
+$> fulltextsearch query [dir]
+```
+
+## Dependencies
 
 * [Apache PdfBox](https://pdfbox.apache.org/)
 * [Apache POI](https://poi.apache.org/)

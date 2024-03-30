@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'io.shubham0204.fulltextsearch'
-version = '1.0-SNAPSHOT'
+version = '1.0'
 project.setProperty( "mainClassName" , "io.shubham0204.fulltextsearch.cli.FullTextSearchCommand" )
 
 repositories {

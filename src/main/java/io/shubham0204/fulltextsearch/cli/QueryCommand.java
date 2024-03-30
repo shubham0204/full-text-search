@@ -42,15 +42,21 @@ public class QueryCommand implements Runnable {
                 }
 
                 Scanner scanner = new Scanner( System.in ) ;
+                ConsoleLogger.info( "Enter query: " );
                 while (true) {
-                    ConsoleLogger.info( "Enter query: " );
+                    System.out.print( "> " );
                     String line = scanner.nextLine() ;
                     if (line.trim().isEmpty()) {
                         break;
                     }
                     Integer[] indices = invertedIndex.query( line ) ;
-                    ConsoleLogger.info( "Found in documents: " );
-                    Arrays.stream(indices).forEach(index -> ConsoleLogger.info( filenames.get(index) ) ) ;
+                    if ( indices.length != 0 ) {
+                        ConsoleLogger.success( "Found in documents: " );
+                        Arrays.stream(indices).forEach(index -> ConsoleLogger.info( filenames.get(index) ) ) ;
+                    }
+                    else {
+                        ConsoleLogger.warn( "No documents found" );
+                    }
                 }
             }
             catch (IOException | ClassNotFoundException e) {

@@ -19,16 +19,17 @@ public class FileManager {
         return indexFile.exists();
     }
 
-    public List<String> readFilesFromDir(String dirPath, List<String> allowedExtensions) {
-        File file = new File(dirPath);
-        File[] readFiles = file.listFiles((dir, name) -> name.contains("."));
+    public List<String> readFilesFromDir(String dirPath, List<String> ignoredExtensions) {
+        File dirFile = new File(dirPath);
+        File[] readFiles = dirFile.listFiles((dir, name) -> name.contains("."));
         ArrayList<String> docs = new ArrayList<>();
         if (readFiles != null) {
             Arrays.sort( readFiles );
-            for (File readFile : readFiles) {
-                Optional<String> extension = getFileExtension(readFile.getName());
-                if (extension.isPresent() && (allowedExtensions.contains(extension.get()))) {
-                    docs.add(readFile(readFile.getAbsolutePath(), extension.get()));
+            for (File file : readFiles) {
+                Optional<String> extension = getFileExtension(file.getName());
+                if (extension.isPresent() && (!ignoredExtensions.contains(extension.get()))) {
+                    Optional<String> readFileResult = readFile(file.getAbsolutePath(), extension.get()) ;
+                    readFileResult.ifPresent(docs::add);
                 }
             }
         }
@@ -36,32 +37,33 @@ public class FileManager {
     }
 
     public static List<String> getFileNamesFromDir(String dirPath, List<String> allowedExtensions) {
-        File file = new File(dirPath);
-        File[] readFiles = file.listFiles((dir, name) -> name.contains("."));
+        File dirFile = new File(dirPath);
+        File[] readFiles = dirFile.listFiles((dir, name) -> name.contains("."));
         ArrayList<String> docs = new ArrayList<>();
         if (readFiles != null) {
             Arrays.sort( readFiles );
-            for (File readFile : readFiles) {
-                Optional<String> extension = getFileExtension(readFile.getName());
+            for (File file : readFiles) {
+                Optional<String> extension = getFileExtension(file.getName());
                 if (extension.isPresent() && (allowedExtensions.contains(extension.get()))) {
-                    docs.add( readFile.getName() );
+                    docs.add( file.getName() );
                 }
             }
         }
         return docs;
     }
 
-    private String readFile(String filepath, String extension) {
+    private Optional<String> readFile(String filepath, String extension) {
         try {
             if (Objects.equals(extension, "pdf")) {
-                return pdfReader.parse(filepath);
+                return Optional.of( pdfReader.parse(filepath) );
             } else if (Objects.equals(extension, "docx")) {
-                return docxReader.parse(filepath);
+                return Optional.of( docxReader.parse(filepath) );
             } else {
-                return Files.readString(Paths.get(filepath));
+                return Optional.of( Files.readString(Paths.get(filepath)) );
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            ConsoleLogger.warn( "Could not read file: " + filepath );
+            return Optional.empty() ;
         }
     }
 
