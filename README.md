@@ -1,4 +1,6 @@
-# Full-Text-Search From Document Using Inverted Index
+# Full Text Search On Local Files With Inverted Index
+
+![banner](https://github.com/shubham0204/full-text-search/assets/41076823/018f35f2-75e3-4589-938c-46e33fe259d9)
 
 ## Features
 
