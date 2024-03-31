@@ -24,7 +24,8 @@ public class IndexBuildCommand implements Runnable {
 
     @CommandLine.Option(
             names = {"--ignore", "-i"},
-            description = "File extensions to be ignored while reading files from the directory"
+            description = "File extensions to be ignored while reading files from the directory" ,
+            defaultValue = ""
     )
     private String ignoredExtensionsValue;
 
