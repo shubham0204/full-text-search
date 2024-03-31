@@ -7,7 +7,7 @@ public class Utils {
 
     public static List<String> preprocessDocument(String text) {
         String cleanedText = clean(text.toLowerCase());
-        return tokenize(cleanedText);
+        return StopWords.removeStopWords( tokenize(cleanedText) );
     }
 
     private static String clean(String text) {
@@ -17,7 +17,6 @@ public class Utils {
     public static List<String> tokenize(String text) {
         return Arrays.stream(text.split(" "))
                 .map(String::trim)
-                .filter(token -> token.length() > 2)
                 .toList();
     }
 
