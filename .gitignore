@@ -16,7 +16,7 @@ build/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-
+src/main/java/io/shubham0204/fulltextsearch/Main.java
 ### Eclipse ###
 .apt_generated
 .classpath
