@@ -13,7 +13,7 @@ public class TestFileManager {
     @DisplayName( "test-get-files-from-dir" )
     void testGetFilesFromDir() {
         FileManager fileManager = new FileManager() ;
-        List<String> docs = fileManager.readFilesFromDir("src/test/resources", List.of("docx", "pdf", "java"));
+        List<String> docs = fileManager.readFilesFromDir("src/test/resources", List.of() );
         for (String doc : docs) {
             System.out.println( doc ) ;
         }
