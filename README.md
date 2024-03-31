@@ -2,6 +2,10 @@
 
 ![banner](https://github.com/shubham0204/full-text-search/assets/41076823/018f35f2-75e3-4589-938c-46e33fe259d9)
 
+## Demo
+
+![demo_gif](https://github.com/shubham0204/full-text-search/assets/41076823/9b24636a-a340-4e69-8c37-3760534a3909)
+
 ## Features
 
 * Text extraction from PDFs, Microsoft Word DOCX and text-based formats
