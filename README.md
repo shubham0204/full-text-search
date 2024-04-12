@@ -69,3 +69,4 @@ $> fulltextsearch query [dir]
 * [Building a full-text search engine in 150 lines of Python code](https://bart.degoe.de/building-a-full-text-search-engine-150-lines-of-code/)
 * [Building a Full Text Search Engine](https://blog.quastor.org/p/building-full-text-search-engine)
 * [How to Implement Inverted Index Data Structure in Java](https://taruntelang.medium.com/how-to-implement-inverted-index-data-structure-in-java-14067093acd4)
+* [Reddit discussion on `full-text-search`](https://www.reddit.com/r/learnjava/comments/1bs8v5w/project_full_text_search_on_local_files_with/)
